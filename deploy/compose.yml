@@ -1,0 +1,16 @@
+services:
+  deyu:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    environment:
+      DEYU_DB: /app/data/deyu.db
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-chat}
+      DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+    volumes:
+      - deyu-data:/app/data
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+volumes:
+  deyu-data:
